@@ -17,10 +17,14 @@
   tasks = {
     "lint:run".exec = ''
       mdformat README.md
-       git ls-files --cached --others --exclude-standard '*.nix' | xargs nixfmt
-       ruff check
-       ruff format'';
+      nixfmt devenv.nix
+      ruff check
+      ruff format'';
   };
+
+  enterTest = ''
+    python3 hydra.py -h
+  '';
 
   # https://devenv.sh/git-hooks/
   git-hooks.hooks = {
