@@ -2,7 +2,7 @@
 
 {
   # https://devenv.sh/packages/
-  packages = with pkgs; [ git mdformat nixfmt-classic ruff tshark ];
+  packages = with pkgs; [ git tshark ];
 
   # https://devenv.sh/languages/
   languages.python.enable = true;
@@ -12,21 +12,6 @@
     sync.enable = true;
     sync.allExtras = true; # Sync dev dependencies
   };
-
-  # https://devenv.sh/scripts/
-  scripts = {
-    "lint:run".exec = ''
-      mdformat README.md
-      nixfmt devenv.nix
-      ruff check
-      ruff format'';
-  };
-
-  # https://devenv.sh/basics/
-  enterShell = ''
-    echo "Available commands:"
-    echo " - lint         : Lint repository"
-  '';
 
   enterTest = ''
     python3 hydra.py -h
@@ -39,6 +24,8 @@
     ruff.enable = true;
     ruff-format.enable = true;
     trim-trailing-whitespace.enable = true;
+    uv-check.enable = true;
+    uv-lock.enable = true;
   };
 
   # See full reference at https://devenv.sh/reference/options/
